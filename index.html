@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SITE</title>
+<style>
+  /* ===== EDIT THESE COLORS TO RETHEME ===== */
+  :root {
+    --page-bg: #003366;      /* outer background */
+    --wrap-bg: #ffffff;      /* main content */
+    --side-bg: #d6e4f5;      /* sidebar */
+    --header-1: #0a3d91;     /* header gradient top */
+    --header-2: #4f8fe0;     /* header gradient bottom */
+    --link: #0000cc;
+    --visited: #660099;
+    --accent: #ff6600;
+  }
+
+  body {
+    margin: 0;
+    padding: 12px 0;
+    background: var(--page-bg) repeating-linear-gradient(45deg, rgba(255,255,255,.04) 0 6px, transparent 6px 12px);
+    font-family: Verdana, Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    color: #000;
+  }
+  a { color: var(--link); }
+  a:visited { color: var(--visited); }
+  a:hover { color: #ff0000; text-decoration: none; background: #ffff99; }
+
+  #wrap {
+    width: 800px;
+    max-width: 96%;
+    margin: 0 auto;
+    background: var(--wrap-bg);
+    border: 3px outset #cccccc;
+  }
+
+  /* ----- Header ----- */
+  #header {
+    background: linear-gradient(to bottom, var(--header-2), var(--header-1));
+    border-bottom: 3px solid var(--accent);
+    text-align: center;
+    padding: 14px 10px 10px;
+  }
+  #header h1 {
+    margin: 0;
+    font: bold 38px "Comic Sans MS", "Trebuchet MS", cursive;
+    color: #ffff00;
+    text-shadow: 3px 3px 0 #000066, 1px 1px 0 #000;
+    letter-spacing: 1px;
+  }
+  #header p { margin: 4px 0 0; color: #fff; font-style: italic; font-size: 13px; }
+
+  /* ----- Marquee ----- */
+  .ticker {
+    background: #000;
+    color: #00ff00;
+    font: 12px "Courier New", monospace;
+    padding: 3px 0;
+    border-bottom: 2px groove #999;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .ticker span { display: inline-block; padding-left: 100%; animation: scroll 18s linear infinite; }
+  @keyframes scroll { to { transform: translateX(-100%); } }
+
+  /* ----- Top nav ----- */
+  #topnav { background: #eeeeee; border-bottom: 1px solid #999; text-align: center; padding: 4px; }
+  #topnav a { margin: 0 6px; font-weight: bold; }
+
+  /* ----- Columns ----- */
+  #cols { display: flex; align-items: stretch; }
+  #side {
+    width: 170px;
+    flex: none;
+    background: var(--side-bg);
+    border-right: 2px ridge #999;
+    padding: 8px;
+  }
+  #main { flex: 1; padding: 12px 16px; min-width: 0; line-height: 1.5; }
+
+  .box { border: 2px outset #fff; background: #fff; margin-bottom: 10px; }
+  .box h3 {
+    margin: 0;
+    padding: 2px 6px;
+    font-size: 12px;
+    color: #fff;
+    background: linear-gradient(to right, var(--header-1), var(--header-2));
+  }
+  .box .in { padding: 6px; }
+  .box ul { margin: 0; padding-left: 16px; list-style: square; }
+  .box li { margin: 3px 0; }
+
+  /* ----- Main content ----- */
+  h2 {
+    font: bold 18px Georgia, "Times New Roman", serif;
+    color: var(--header-1);
+    border-bottom: 2px dotted var(--accent);
+    margin: 0 0 8px;
+    padding-bottom: 2px;
+  }
+  .section { margin-bottom: 20px; }
+  .new { color: #ff0000; font-weight: bold; animation: blink 1s steps(2, start) infinite; }
+  @keyframes blink { to { visibility: hidden; } }
+
+  .construction {
+    background: repeating-linear-gradient(45deg, #ffcc00 0 12px, #000 12px 24px);
+    padding: 5px;
+    margin: 12px 0;
+    text-align: center;
+  }
+  .construction div { background: #ffffcc; padding: 6px; font-weight: bold; border: 1px solid #000; }
+
+  table.data { border-collapse: collapse; width: 100%; }
+  table.data th { background: var(--header-1); color: #fff; padding: 3px 6px; text-align: left; }
+  table.data td { border: 1px solid #999; padding: 3px 6px; }
+  table.data tr:nth-child(even) td { background: #eef3fb; }
+
+  .photo { float: right; margin: 0 0 8px 12px; border: 3px ridge #999; padding: 3px; background: #fff; text-align: center; font-size: 10px; }
+  .photo .ph { width: 120px; height: 120px; background: #ccc; display: flex; align-items: center; justify-content: center; color: #666; }
+
+  /* ----- Form ----- */
+  fieldset { border: 2px groove #999; padding: 8px; }
+  legend { font-weight: bold; color: var(--header-1); }
+  label { display: block; margin: 4px 0 2px; }
+  input[type=text], input[type=email], textarea {
+    font: 12px Verdana, sans-serif;
+    border: 2px inset #999;
+    width: 95%;
+    padding: 2px;
+    box-sizing: border-box;
+  }
+  .btn, button {
+    font: bold 12px Verdana, sans-serif;
+    background: linear-gradient(to bottom, #fafafa, #c4c4c4);
+    border: 2px outset #fff;
+    padding: 3px 12px;
+    cursor: pointer;
+    margin-top: 6px;
+  }
+  .btn:active, button:active { border-style: inset; }
+
+  /* ----- Counter & badges ----- */
+  .counter {
+    display: inline-block;
+    background: #000;
+    color: #ff0000;
+    font: bold 16px "Courier New", monospace;
+    letter-spacing: 3px;
+    padding: 2px 6px;
+    border: 2px inset #666;
+  }
+  .badges { text-align: center; margin: 6px 0; }
+  .badge {
+    display: inline-block;
+    width: 88px; height: 31px;
+    line-height: 31px;
+    font: bold 10px Arial, sans-serif;
+    border: 1px solid #000;
+    margin: 2px;
+    color: #fff;
+    text-align: center;
+  }
+  .b1 { background: linear-gradient(#ff9900, #cc3300); }
+  .b2 { background: linear-gradient(#33cc33, #006600); }
+  .b3 { background: linear-gradient(#3399ff, #000099); }
+  .b4 { background: linear-gradient(#cc66ff, #330066); }
+
+  /* ----- Footer ----- */
+  #footer {
+    background: #eeeeee;
+    border-top: 3px double #666;
+    text-align: center;
+    padding: 8px;
+    font-size: 10px;
+    color: #333;
+  }
+  hr { border: 0; border-top: 2px groove #aaa; }
+
+  @media (max-width: 600px) {
+    #cols { flex-direction: column; }
+    #side { width: auto; border-right: 0; border-bottom: 2px ridge #999; }
+    #header h1 { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="wrap">
+
+  <div id="header">
+    <h1>~* Your Site Name *~</h1>
+    <p>Your cool tagline goes right here!!</p>
+  </div>
+
+  <div class="ticker"><span>*** Welcome to my website!!! *** Last updated: 00/00/0000 *** Please sign my guestbook *** Thanks for visiting!!! ***</span></div>
+
+  <div id="topnav">
+    <a href="https://github.com/bleepbloopai/site.git">Home</a> |
+    <a href="https://github.com/bleepbloopai/site.git">About Me</a> |
+    <a href="https://github.com/bleepbloopai/site.git">News</a> |
+    <a href="https://github.com/bleepbloopai/site.git">Links</a> |
+    <a href="https://github.com/bleepbloopai/site.git">Guestbook</a> |
+    <a href="https://github.com/bleepbloopai/site.git">Contact</a>
+  </div>
+
+  <div id="cols">
+
+    <!-- Sidebar -->
+    <div id="side">
+      <div class="box">
+        <h3>Navigation</h3>
+        <div class="in">
+          <ul>
+            <li><a href="https://github.com/bleepbloopai/site.git">Home</a></li>
+            <li><a href="https://github.com/bleepbloopai/site.git">About Me</a></li>
+            <li><a href="https://github.com/bleepbloopai/site.git">What's New</a></li>
+            <li><a href="https://github.com/bleepbloopai/site.git">Pictures</a></li>
+            <li><a href="https://github.com/bleepbloopai/site.git">Cool Links</a></li>
+            <li><a href="https://github.com/bleepbloopai/site.git">Guestbook</a></li>
+            <li><a href="https://github.com/bleepbloopai/site.git">E-mail Me</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="box">
+        <h3>Visitors</h3>
+        <div class="in" style="text-align:center">
+          You are visitor<br>
+          <span class="counter">NUMBER</span>
+        </div>
+      </div>
+
+      <div class="box">
+        <h3>Poll</h3>
+        <div class="in">
+          Best browser?<br>
+          <label><input type="radio" name="poll"> Netscape</label>
+          <label><input type="radio" name="poll"> Internet Explorer</label>
+          <label><input type="radio" name="poll"> Other</label>
+          <button type="button">Vote!</button>
+        </div>
+      </div>
+
+      <div class="badges">
+        <span class="badge b1">MADE WITH<br></span>
+        <span class="badge b2">NOTEPAD</span>
+        <span class="badge b3">800x600</span>
+        <span class="badge b4">WEBRING</span>
+      </div>
+    </div>
+
+    <!-- Main -->
+    <div id="main">
+
+      <div class="section" id="home">
+        <h2>Welcome!!</h2>
+        <div class="photo">
+          <div class="ph">your pic</div>
+          That's me!
+        </div>
+        <p>Hi there and welcome to my corner of the World Wide Web! My name is <b>Your Name</b> and this is my homepage. Grab a seat, look around, and don't forget to <a href="https://github.com/bleepbloopai/site.git">sign the guestbook</a> before you go.</p>
+        <p>This site is a work in progress, so check back often. <span class="new">NEW!</span> I just added a links page.</p>
+        <div style="clear:both"></div>
+      </div>
+
+      <div class="construction">
+        <div>&#9888; This page is under construction &#9888;<br>Please excuse the mess!</div>
+      </div>
+
+      <div class="section" id="about">
+        <h2>About Me</h2>
+        <p>Write a few sentences about yourself here. Mention your hobbies, favorite bands, and what you like to do on the computer. Use <b>bold</b>, <i>italics</i>, and <u>underline</u> generously.</p>
+        <table class="data">
+          <tr><th>Favorites</th><th>Answer</th></tr>
+          <tr><td>Music</td><td>Fill me in</td></tr>
+          <tr><td>Movie</td><td>Fill me in</td></tr>
+          <tr><td>Game</td><td>Fill me in</td></tr>
+          <tr><td>Food</td><td>Fill me in</td></tr>
+        </table>
+      </div>
+
+      <div class="section" id="news">
+        <h2>What's New</h2>
+        <p><b>10/16/2026</b> - Launched the new site layout. <span class="new">NEW!</span><br>
+        <b>10/01/2026</b> - Added a poll and a visitor counter.<br>
+        <b>09/15/2026</b> - Created this page. Hello world!</p>
+      </div>
+
+      <div class="section" id="links">
+        <h2>Cool Links</h2>
+        <ul>
+          <li><a href="https://github.com/bleepbloopai/site.git">Link to a site you love</a> - a short description</li>
+          <li><a href="https://github.com/bleepbloopai/site.git">Another awesome site</a> - another short description</li>
+          <li><a href="https://github.com/bleepbloopai/site.git">My friend's homepage</a> - go say hi!</li>
+        </ul>
+      </div>
+
+      <div class="section" id="guestbook">
+        <h2>Sign My Guestbook</h2>
+        <form onsubmit="alert('Thanks for signing my guestbook!'); return false;">
+          <fieldset>
+            <legend>Leave a message</legend>
+            <label for="gname">Your name:</label>
+            <input type="text" id="gname">
+            <label for="gmsg">Message:</label>
+            <textarea id="gmsg" rows="4"></textarea>
+            <button type="submit">Sign it!</button>
+            <button type="reset">Clear</button>
+          </fieldset>
+        </form>
+      </div>
+
+      <div class="section" id="contact">
+        <h2>Contact</h2>
+        <p>E-mail me at <a href="https://github.com/bleepbloopai/site.git">you@example.com</a>. I try to answer every message!</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="footer">
+    <hr>
+    Best viewed in Internet Explorer 6 at 1024x768 resolution.<br>
+    &copy; 2026 Your Name. All rights reserved. Last updated 10/16/2026.<br>
+    <a href="https://github.com/bleepbloopai/site.git">Back to top</a>
+  </div>
+
+</div>
+
+</body>
+</html>
